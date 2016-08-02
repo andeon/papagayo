@@ -355,7 +355,7 @@ class LipsyncFrame(wx.Frame):
 			return
 		dlg = wx.FileDialog(
 			self, message = "Open Audio or %s File" % appTitle, defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-			defaultFile = "", wildcard = openWildcard, style = wx.OPEN | wx.CHANGE_DIR | wx.FILE_MUST_EXIST)
+			defaultFile = "", wildcard = openWildcard, style = wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.FD_FILE_MUST_EXIST)
 		if dlg.ShowModal() == wx.ID_OK:
 			self.OnStop()
 			self.OnClose()
@@ -377,7 +377,7 @@ class LipsyncFrame(wx.Frame):
 					dlg.Destroy()
 					dlg = wx.FileDialog(
 						self, message = "Open Audio", defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-						defaultFile = "", wildcard = openAudioWildcard, style = wx.OPEN | wx.CHANGE_DIR | wx.FILE_MUST_EXIST)
+						defaultFile = "", wildcard = openAudioWildcard, style = wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.FD_FILE_MUST_EXIST)
 					if dlg.ShowModal() == wx.ID_OK:
 						self.config.Write("WorkingDir", dlg.GetDirectory())
 						paths = dlg.GetPaths()
@@ -449,7 +449,7 @@ class LipsyncFrame(wx.Frame):
 			return
 		dlg = wx.FileDialog(
 			self, message = "Save %s File" % appTitle, defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-			defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".pgo", wildcard = saveWildcard, style = wx.SAVE | wx.CHANGE_DIR | wx.OVERWRITE_PROMPT)
+			defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".pgo", wildcard = saveWildcard, style = wx.FD_SAVE | wx.FD_CHANGE_DIR | wx.FD_OVERWRITE_PROMPT)
 		if dlg.ShowModal() == wx.ID_OK:
 			self.config.Write("WorkingDir", dlg.GetDirectory())
 			self.doc.Save(dlg.GetPaths()[0])
@@ -574,7 +574,7 @@ class LipsyncFrame(wx.Frame):
 			if exporter == "MOHO":
 				dlg = wx.FileDialog(
 				self, message = "Export Lipsync Data (MOHO)", defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-				defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".dat", wildcard = "Moho switch files (*.dat)|*.dat", style = wx.SAVE | wx.CHANGE_DIR | wx.OVERWRITE_PROMPT)
+				defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".dat", wildcard = "Moho switch files (*.dat)|*.dat", style = wx.FD_SAVE | wx.FD_CHANGE_DIR | wx.FD_OVERWRITE_PROMPT)
 				if dlg.ShowModal() == wx.ID_OK:
 					self.config.Write("WorkingDir", dlg.GetDirectory())
 					self.doc.currentVoice.Export(dlg.GetPaths()[0])
@@ -591,7 +591,7 @@ class LipsyncFrame(wx.Frame):
 				if result == wx.ID_YES:
 					dlg = wx.FileDialog(
 					self, message = "Export Lipsync Data (ALELO)", defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-					defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".txt", wildcard = "Alelo timing files (*.txt)|*.txt", style = wx.SAVE | wx.CHANGE_DIR | wx.OVERWRITE_PROMPT)
+					defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0]+".txt", wildcard = "Alelo timing files (*.txt)|*.txt", style = wx.FD_SAVE | wx.FD_CHANGE_DIR | wx.FD_OVERWRITE_PROMPT)
 					if dlg.ShowModal() == wx.ID_OK:
 						self.config.Write("WorkingDir", dlg.GetDirectory())
 						self.doc.currentVoice.ExportAlelo(dlg.GetPaths()[0], language, self.langman)
@@ -599,7 +599,7 @@ class LipsyncFrame(wx.Frame):
 			elif exporter == "Images":
 				dlg = wx.FileDialog(
 				self, message = "Export Image Strip", defaultDir = self.config.Read("WorkingDir", get_main_dir()),
-				defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0], style = wx.SAVE | wx.CHANGE_DIR | wx.OVERWRITE_PROMPT)
+				defaultFile = "%s" % self.doc.soundPath.rsplit('.', 1)[0], style = wx.FD_SAVE | wx.FD_CHANGE_DIR | wx.FD_OVERWRITE_PROMPT)
 				if dlg.ShowModal() ==wx.ID_OK:
 					self.config.Write("WorkingDir", dlg.GetDirectory())
 					self.doc.currentVoice.ExportImages(dlg.GetPaths()[0],self.mouthChoice.GetStringSelection())
@@ -611,7 +611,7 @@ class LipsyncFrame(wx.Frame):
 		if (self.doc is not None) and (self.doc.currentVoice is not None):
 			voiceimagepath = wx.DirDialog(
 			self, message = "Choose Path for Images", defaultPath = self.config.Read("MouthDir", os.path.join(os.path.dirname(os.path.abspath(__file__)), "rsrc/mouths/")),
-			style = wx.OPEN | wx.CHANGE_DIR | wx.DD_DIR_MUST_EXIST)
+			style = wx.FD_OPEN | wx.FD_CHANGE_DIR | wx.DD_DIR_MUST_EXIST)
 			if voiceimagepath.ShowModal() ==wx.ID_OK:
 				self.config.Write("MouthDir",voiceimagepath.GetPath())
 				print(voiceimagepath.GetPath())
