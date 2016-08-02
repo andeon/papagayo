@@ -26,8 +26,8 @@ from LipsyncFrame import LipsyncFrame
 
 class LipsyncApp(wx.App):
 	def OnInit(self):
-		self.SetAssertMode(wx.PYAPP_ASSERT_SUPPRESS)
 		wx.InitAllImageHandlers()
+		self.SetAssertMode(wx.PYAPP_ASSERT_SUPPRESS)
 		self.mainFrame = LipsyncFrame(None, -1, "")
 		self.SetTopWindow(self.mainFrame)
 		self.mainFrame.Show()
